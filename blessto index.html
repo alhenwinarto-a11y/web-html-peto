@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Formulir Bengkel— 3 Halaman</title>
+  <style>
+    :root{--bg:#f4f6f8;--card:#ffffff;--accent:#1565c0;--muted:#6b7280}
+    *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{margin:0;background:var(--bg);color:#111}
+    .container{max-width:900px;margin:36px auto;padding:22px}
+    .card{background:var(--card);border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.06);padding:22px}
+    h1{font-size:20px;margin:0 0 12px}
+    .progress{display:flex;gap:8px;margin:18px 0}
+    .step{flex:1;padding:8px 10px;background:#eef3fb;border-radius:8px; text-align:center;color:var(--muted);font-size:13px}
+    .step.active{background:linear-gradient(90deg,var(--accent),#2a7bdc);color:#fff}
+    form{margin-top:8px}
+    fieldset{border:0;padding:0;margin:0;display:none}
+    fieldset.active{display:block}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted)}
+    input[type=text],input[type=tel],input[type=email],select,textarea{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px}
+    textarea{min-height:100px;resize:vertical}
+    .actions{display:flex;justify-content:space-between;gap:12px;margin-top:16px}
+    button{padding:10px 14px;border-radius:10px;border:0;font-weight:600;cursor:pointer}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-ghost{background:transparent;border:1px solid #e5e7eb}
+    .summary{background:#fbfdff;border:1px dashed #cfe7ff;padding:12px;border-radius:8px}
+    .small{font-size:13px;color:var(--muted)}
+    .error{color:#b91c1c;font-size:13px;margin-top:6px}
+    @media (max-width:520px){.actions{flex-direction:column-reverse}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Pettod Workshop Form— Service Registration</h1>
+      <p class="small">Fill in vehicle and service data. This form makes it easier for you to register your vehicle when servicing it at our workshop</p>
+
+      <div class="progress" aria-hidden>
+        <div class="step active" data-step-label>1. Customer</div>
+        <div class="step" data-step-label>2. Vehicle</div>
+        <div class="step" data-step-label>3.Confirmation</div>
+      </div>
+
+      <form id="multiForm" novalidate>
+        <!-- Step 1: Customer -->
+        <fieldset data-step="1" class="active">
+          <div class="grid">
+            <div>
+              <label for="nama">Name</label>
+              <input id="nama" name="nama" type="text" required placeholder="Name cutomer" />
+            </div>
+            <div>
+              <label for="telepon">No. Headphone</label>
+              <input id="telepon" name="telepon" type="tel" required placeholder="08xxxxxxxxxx" />
+            </div>
+            <div>
+              <label for="email">Email (opsional)</label>
+              <input id="email" name="email" type="email" placeholder="name@example.com" />
+            </div>
+            <div>
+              <label for="alamat">Location</label>
+              <input id="alamat" name="alamat" type="text" placeholder="City, road, dll." />
+            </div>
+          </div>
+          <div class="actions">
+            <div></div>
+            <div>
+              <button type="button" class="btn-primary" id="next1">Next</button>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Step 2: Vehicle & Service -->
+        <fieldset data-step="2">
+          <div class="grid">
+            <div>
+              <label for="merek">Type</label>
+              <input id="merek" name="merek" type="text" required placeholder="example: Toyota Avanza" />
+            </div>
+            <div>
+              <label for="tahun">Year</label>
+              <input id="tahun" name="tahun" type="text" placeholder="2020" />
+            </div>
+            <div>
+              <label for="nopol">No. Police</label>
+              <input id="nopol" name="nopol" type="text" placeholder="B 1234 CD" />
+            </div>
+            <div>
+              <label for="kilometer">Last kilometer</label>
+              <input id="kilometer" name="kilometer" type="text" placeholder="57.000 km" />
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <label for="layanan">Type Of Servis</label>
+            <select id="layanan" name="layanan" required>
+              <option value="">-- Select Service --</option>
+              <option value="servis-berkala">Regular service</option>
+              <option value="ganti-oli">Oil change</option>
+              <option value="perbaikan-rem">Brake repair</option>
+              <option value="body-paint">Body / Paint</option>
+              <option value="lainnya">Other</option>
+            </select>
+          </div>
+
+          <div style="margin-top:12px">
+            <label for="catatan">Note</label>
+            <textarea id="catatan" name="catatan" placeholder="provide notes here"></textarea>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="btn-ghost" id="prev2">Back</button>
+            <button type="button" class="btn-primary" id="next2">Next</button>
+          </div>
+        </fieldset>
+
+        <!-- Step 3: Confirmation & Submit -->
+        <fieldset data-step="3">
+          <h3>Summary and confirmation</h3>
+          <div class="summary" id="summary">
+            <!-- diisi oleh JS -->
+          </div>
+
+          <p class="small" style="margin-top:10px">Thank you for entrusting your beloved vehicle to be serviced at our workshop🙏.</p>
+
+          <div class="actions">
+            <button type="button" class="btn-ghost" id="prev3">Back</button>
+            <button type="submit" class="btn-primary">Send</button>
+          </div>
+        </fieldset>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const form = document.getElementById('multiForm');
+      const steps = Array.from(document.querySelectorAll('fieldset'));
+      const stepLabels = Array.from(document.querySelectorAll('.step'));
+      let current = 0;
+
+      function showStep(index){
+        steps.forEach((s,i)=> s.classList.toggle('active', i===index));
+        stepLabels.forEach((l,i)=> l.classList.toggle('active', i===index));
+        current = index;
+      }
+
+      // navigation buttons
+      document.getElementById('next1').addEventListener('click', ()=>{
+        // simple validation for step 1
+        const nama = form.nama.value.trim();
+        const telepon = form.telepon.value.trim();
+        if(!nama || !telepon){
+          alert('Mohon isi Nama dan No. Telepon.');
+          return;
+        }
+        showStep(1);
+      });
+
+      document.getElementById('next2').addEventListener('click', ()=>{
+        const layanan = form.layanan.value;
+        const merek = form.merek.value.trim();
+        if(!layanan || !merek){
+          alert('Mohon pilih layanan dan isi merek kendaraan.');
+          return;
+        }
+        buildSummary();
+        showStep(2);
+      });
+
+      document.getElementById('prev2').addEventListener('click', ()=> showStep(0));
+      document.getElementById('prev3').addEventListener('click', ()=> showStep(1));
+
+      function buildSummary(){
+        const data = new FormData(form);
+        const entries = {};
+        for(const [k,v] of data.entries()) entries[k]=v;
+        const summary = document.getElementById('summary');
+        summary.innerHTML = `
+          <strong>Nama:</strong> ${escapeHtml(entries.nama||'-')}<br>
+          <strong>No. Telepon:</strong> ${escapeHtml(entries.telepon||'-')}<br>
+          <strong>Email:</strong> ${escapeHtml(entries.email||'-')}<br>
+          <strong>Alamat:</strong> ${escapeHtml(entries.alamat||'-')}<br>
+          <hr>
+          <strong>Merek / Model:</strong> ${escapeHtml(entries.merek||'-')}<br>
+          <strong>Tahun:</strong> ${escapeHtml(entries.tahun||'-')}<br>
+          <strong>No. Polisi:</strong> ${escapeHtml(entries.nopol||'-')}<br>
+          <strong>Kilometer:</strong> ${escapeHtml(entries.kilometer||'-')}<br>
+          <strong>Layanan:</strong> ${escapeHtml(entries.layanan||'-')}<br>
+          <strong>Catatan:</strong> ${escapeHtml(entries.catatan||'-')}
+        `;
+      }
+
+      function escapeHtml(text){
+        return String(text)
+          .replace(/&/g,'&amp;')
+          .replace(/</g,'&lt;')
+          .replace(/>/g,'&gt;')
+          .replace(/"/g,'&quot;');
+      }
+
+      // submit handler — contoh: kirim ke endpoint
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        // contoh sederhana: tampilkan data dan simpan di localStorage
+        const data = Object.fromEntries(new FormData(form).entries());
+        // di tempat nyata: fetch('/api/submit', {method:'POST', body: JSON.stringify(data)})
+        try{
+          localStorage.setItem('formBengkelLast', JSON.stringify(data));
+        }catch(err){/*ignore*/}
+        alert('Formulir berhasil dikirim — data disimpan sementara di browser (localStorage).');
+        form.reset();
+        showStep(0);
+      });
+
+      // best-effort: load last data
+      try{
+        const last = JSON.parse(localStorage.getItem('formBengkelLast')||'null');
+        if(last && last.nama) {
+          // populate some fields
+          form.nama.value = last.nama||'';
+          form.telepon.value = last.telepon||'';
+        }
+      }catch(e){/*ignore*/}
+
+      // init
+      showStep(0);
+
+    })();
+  </script>
+</body>
+</html>
